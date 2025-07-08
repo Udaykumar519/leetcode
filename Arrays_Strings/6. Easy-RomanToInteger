@@ -1,0 +1,26 @@
+class Solution {
+    public int romanToInt(String s) {
+        int result = 0;
+
+        HashMap<Character, Integer> symValueMap = new HashMap<>();
+        symValueMap.put('I',1);
+        symValueMap.put('V',5);
+        symValueMap.put('X',10);
+        symValueMap.put('L',50);
+        symValueMap.put('C',100);
+        symValueMap.put('D',500);
+        symValueMap.put('M',1000);
+
+        for (int i=0; i < s.length(); i++){
+            char c = s.charAt(i);
+            if ( i + 1 < s.length() && symValueMap.get(c) < symValueMap.get(s.charAt(i+1)))       {
+                result -= symValueMap.get(c);
+            }
+            else{
+                result += symValueMap.get(c);
+            }
+        }
+
+        return result;
+    }
+}
