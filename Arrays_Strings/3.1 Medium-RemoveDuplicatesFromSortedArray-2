@@ -1,0 +1,17 @@
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        if (nums.length <= 2) return nums.length;
+
+        int index = 2; // index to place the next allowed number
+
+        for (int i = 2; i < nums.length; i++) {
+            // Only copy if the current number is NOT equal to nums[index - 2]
+            if (nums[i] != nums[index - 2]) {
+                nums[index] = nums[i];
+                index++;
+            }
+        }
+
+        return index;
+    }
+}
