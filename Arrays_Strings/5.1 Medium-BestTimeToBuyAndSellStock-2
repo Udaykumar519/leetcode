@@ -1,0 +1,20 @@
+// Greedy Approach
+class Solution {
+    public int maxProfit(int[] prices) {
+        int max_profit = 0;
+        int b_index = 0;
+        int s_index = 1;
+
+        while (s_index < prices.length){
+            if (prices[s_index] > prices[b_index]){
+                max_profit = max_profit + (prices[s_index] - prices[b_index]);
+                b_index++;
+            }
+            else{
+                b_index = s_index;
+            }
+            s_index++;
+        }
+        return max_profit;
+    }
+}
