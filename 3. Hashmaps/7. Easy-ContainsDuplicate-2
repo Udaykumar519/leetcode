@@ -1,0 +1,17 @@
+class Solution {
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        HashSet<Integer> visitSet = new HashSet<>();
+        int L = 0;
+        int R = 0;
+        while (R < nums.length){
+            if ((R - L) > k){
+                visitSet.remove(nums[L]);
+                L += 1;
+            }
+            if (visitSet.contains(nums[R])) return true;
+            visitSet.add(nums[R]);
+            R += 1;
+        }
+        return false;
+    }
+}
