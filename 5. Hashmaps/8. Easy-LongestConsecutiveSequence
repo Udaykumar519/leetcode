@@ -1,0 +1,68 @@
+// Optimized Approach: To Fix Time Limit Exceeded Error
+// Fix: Process Each Number Once
+
+// We can remove numbers from the set once they’re visited, ensuring every number is touched at most twice (once as start, once in sequence).
+
+// This guarantees O(n) worst case.
+
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        Set<Integer> numsSet = new HashSet<>();
+        for (int num : nums) {
+            numsSet.add(num);
+        }
+
+        int maxLength = 0;
+
+        for (int n : nums) {
+            if (numsSet.contains(n)) {  // only process if not visited yet
+                numsSet.remove(n);
+
+                int prev = n - 1;
+                int next = n + 1;
+                int length = 1;
+
+                // expand left
+                while (numsSet.contains(prev)) {
+                    numsSet.remove(prev);
+                    prev--;
+                    length++;
+                }
+
+                // expand right
+                while (numsSet.contains(next)) {
+                    numsSet.remove(next);
+                    next++;
+                    length++;
+                }
+
+                maxLength = Math.max(maxLength, length);
+            }
+        }
+
+        return maxLength;
+    }
+}
+
+// Optimized Approach: But Time Limit Exceeded will occur
+// class Solution {
+//     public int longestConsecutive(int[] nums) {
+//         Set<Integer> numsSet = new HashSet<>();
+//         for (int num : nums) {
+//             numsSet.add(num);
+//         }
+//         int maxLength = 0;
+//         for (int n : nums){
+//             if(!numsSet.contains(n-1)){
+//                 int sequenceLength = 1;
+//                 int nextSequence = n + 1;
+//                 while(numsSet.contains(nextSequence)){
+//                     sequenceLength++;
+//                     nextSequence++;
+//                 }
+//                 maxLength = Math.max(maxLength, sequenceLength);
+//             }
+//         }
+//         return maxLength;
+//     }
+// }
